@@ -3,13 +3,15 @@ import "../style/Chatgroup.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from "react-bootstrap";
 import update from 'immutability-helper';
+import { connect } from 'react-redux';
+import {ajouterGroupe, supprimerGroupe} from "../features/groupes/groupesSlice";
 
-export default class Chatgroup extends React.Component   {
+class Chat extends React.Component   {
     constructor(props) {
         super(props);
         this.state = {
             messages: []
-        }        
+        }
     }
 
     componentDidMount() {
@@ -17,18 +19,12 @@ export default class Chatgroup extends React.Component   {
             if (e.code === "Enter") this.handleChat();
         })
     }
-    
+
     envoieMessage = () => {
         this.setState({
             messages: update(this.state.messages, {$push: [document.getElementById('messages').value]})
-        })
-    }  
-
-    messagePrive = (message) => {
-        this.setState({
-            messages: update(this.state.messages, {$push: [message]})
-        })
-    } 
+        },this.clearInput)
+    }
 
     handleChat = () => {
         let text = document.getElementById('messages').value;
@@ -37,37 +33,42 @@ export default class Chatgroup extends React.Component   {
             composants[0] = composants[0].substring(1);
             switch(composants[0]) {
                 case "create":
-                    if (composants[1]) this.props.refGroupes.current.ajouterGroupe(composants[1]);
+                    if (composants[1]) this.props.ajouterGroupe(composants[1]);
                     break;
-                case "list":                        
+                case "list":
                     break;
-                case "nick":                        
+                case "nick":
                     break;
-                case "delete":  
-                    if (composants[1]) this.props.refGroupes.current.supprimerGroupe(composants[1]);                      
+                case "delete":
+                    if (composants[1]) this.props.supprimerGroupe(composants[1]);
                     break;
-                case "join":                        
+                case "join":
                     break;
-                case "quit":                        
+                case "quit":
                     break;
-                case "users":                        
+                case "users":
                     break;
-                case "msg":    
-                    if (composants[1]) this.props.refGroupes.current.ajouterGroupe(composants[1]);
-                    this.messagePrive(composants[2]);
-
+                case "msg":
+                    if (composants[1]) this.props.ajouterGroupe(composants[1]);
                     break;
                 default:
                     break;
             }
         }
-        else this.envoieMessage();
+        else return this.envoieMessage();
+        this.clearInput();
+    }
+
+    clearInput = ()=>{
+        document.getElementById('messages').value='';
     }
 
     render() {
         let {messages} = this.state;
+        if(!this.props.name) return(<div className={"text-center text-white containerChat"}>Sélectionnez un channel</div>);
         return (<>
-                <div className="containerChat">  
+                <div className="containerChat">
+                    <div>{this.props.name}</div>
                     <div className="containerMsg">{messages.map((message,key) => {
                         return (
                             <div className="divMsg" key={key}>
@@ -79,9 +80,10 @@ export default class Chatgroup extends React.Component   {
                         <label> Message : </label><input type="text" id='messages' placeholder="Message..." />
                         <Button type="submit" variant="secondary" value="Envoyer" onClick={this.handleChat}>Envoie</Button>
                     </div>
-                </div>   
+                </div>
                 </>
             )
     }
 
 }
+export default  connect(null,{ajouterGroupe,supprimerGroupe})(Chat);

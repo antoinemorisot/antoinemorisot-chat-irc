@@ -1,11 +1,11 @@
 import './App.css';
 import React from 'react';
-import Managerchat from './component/Managerchat';
+import ManagerChat from './component/ManagerChat';
 
 function App() {
   return (
     <div className="App">
-      <Managerchat/>
+      <ManagerChat/>
     </div>
   );
 }
