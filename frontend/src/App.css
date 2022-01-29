@@ -1,0 +1,76 @@
+.App {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #282c34;
+}
+
+.LogIn{
+  width: 500px;
+  height: 300px;
+  border: solid;  
+  border-color: #d8dfe3;
+  background-color: #393c43;
+}
+
+.LogIn input{
+  margin: 10px;
+  width: 200px;
+  height: 40px;
+  border: 5px solid #d8dfe3;
+  background-color: transparent;
+  padding-left: 10px;
+  color: #d8dfe3;
+  font-size: 10px;
+
+}
+
+.LogIn input:focus{
+  outline: none;
+}
+
+.LogIn button{
+  width: 30vh;
+  height: 50px;
+  border-color: black;
+  background-color: #282c34;
+  color: #d8dfe3;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

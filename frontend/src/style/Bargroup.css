@@ -1,0 +1,11 @@
+.containerGroup{
+    background-color: #2F3136;
+    display: flex;
+    height: 100vh;
+    flex: 0.1;
+    border: solid;
+    border-color: black;
+    padding: 1vh;
+    color: white;
+    flex-direction: column;
+}
