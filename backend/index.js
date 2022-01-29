@@ -1,16 +1,28 @@
-const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
-
-const port = precess.env. PORT || 3003;
-const index = require("./index.js")
-
+const express = require('express');
 const app = express();
-app.use(index);
+const port = 3007;
+const mongoose = require('mongoose');
 
-const server = http.createServer(app);
-app.use(index);
+main().catch(err => console.log(err));
 
-const io = socketIo(server);
+async function main() {
+    await mongoose.connect('mongodb://localhost:27017/test');
+}
 
-const getApiAndEmit = "TODO";
+const channelSchema = new mongoose.Schema({
+    name: String
+});
+const Channel = mongoose.model('Channel', channelSchema);
+
+const general = new Channel({ name: 'General' });
+
+general.save();
+
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
+
